@@ -8,10 +8,10 @@ import time
 
 
 # Get Gemini API key from secrets, environment, or fallback
-api_key = st.secrets.get("GEMINI_API_KEY") 
+api_key = st.secrets.get("GEMINI_API_KEY") or os.getenv("GEMINI_API_KEY")
 
 if not api_key:
-    st.sidebar.error("Gemini API key not found. Please set it in secrets.toml or environment variable.")
+    st.sidebar.error("Gemini API key not found. Please set it in Streamlit secrets.")
     st.stop()
 
 client = genai.Client(api_key=api_key)
