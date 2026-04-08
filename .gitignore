@@ -14,9 +14,3 @@ __pycache__/
 # OS
 .DS_Store
 Thumbs.db
-
-# Activity Reports
-make_report.py
-activity_steps.md
-*.docx
-*.doc
