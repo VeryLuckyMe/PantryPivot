@@ -1,129 +1,75 @@
-# PantryPivot 🥗
+# PantryPivot 🥗 — Advanced AI Kitchen Manager
 
-**Turn What's Left Into What's Next** - Your AI-powered kitchen companion for reducing food waste and creating amazing meals from your pantry staples.
+**Turn What's Left Into What's Next.** PantryPivot is a production-ready, agentic AI application designed to reduce food waste through intelligent recipe generation, automated inventory management, and expert-verified culinary advice.
 
-## 🌟 Features
+---
 
-### Core Features
-- **Smart Recipe Generation**: AI-powered recipes using your available ingredients
-- **Recipe Pivot Engine**: Transform recipes with cuisine, meal type, and difficulty pivots
-- **Waste Tracking**: Log discarded items and track environmental impact
-- **Meal Planning**: Generate weekly meal plans based on your inventory
-- **Storage Tips**: Learn proper storage methods to extend shelf life
-- **Community Hub**: Share recipes, join challenges, and compete on leaderboards
+## 🚀 Advanced AI Architecture (Finals Edition)
 
-### Recipe Pivot Engine
-- **Strict Mode**: Recipes using ONLY available ingredients
-- **Flexible Mode**: Recipes requiring 2 or fewer additional staples
-- **Cuisine Pivot**: "Make this Mexican," "Turn this into Italian"
-- **Meal Type Pivot**: Transform dinner leftovers into breakfast/lunch
-- **Difficulty Scaling**: Quick (15 min) to Weekend Project
+This version of PantryPivot has been upgraded with a professional-grade AI stack:
 
-## 🚀 Quick Start
+### 1. 🤖 Agentic AI (Reasoning Loop)
+Unlike a standard chatbot, PantryPivot is an **AI Agent**. It has "hands" through **Function Calling**.
+- **Autonomous Inventory Management**: The AI reasons about your cooking activities and automatically triggers a `deduct_pantry_items` tool to update your stock.
+- **State Persistence**: Uses a local JSON-based persistence layer to ensure your kitchen inventory is remembered across sessions.
+
+### 2. 📚 RAG (Retrieval-Augmented Generation)
+The system is grounded in expert knowledge using a **Vector Database (ChromaDB)**.
+- **Domain-Specific Knowledge**: Injected with the "Food Too Good To Waste" expert guide (PDF).
+- **Citation Engine**: Every advice or storage tip provided by the AI is cited directly from the knowledge base (e.g., *"Source: Page 4"*).
+- **Semantic Search**: Uses Google Gemini Embeddings to find the most relevant advice for your specific food waste situation.
+
+### 3. 🛡️ Multi-Layer Security (Sandwich Defense)
+Hardened against prompt injection and jailbreaking using advanced security patterns:
+- **The Sandwich Defense**: System instructions are reinforced at the bottom of every prompt to prevent instruction overrides.
+- **Random Delimiter Encapsulation**: Dynamic, unique tags (e.g., `<USER_INPUT_X7Y2>`) isolate user input to prevent tag breakout attacks.
+- **Input Validation**: Real-time filtering for malicious keywords and prompt injection attempts.
+
+---
+
+## 🌟 Core Features
+
+- **Expert Recipe Pivot Engine**: Transform meals using Cuisine, Meal Type, and Difficulty pivots.
+- **Waste Analytics**: Track your financial and environmental impact in real-time.
+- **Modular Refactor**: Clean, package-based Python structure for maximum maintainability.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework**: Streamlit (Python)
+- **AI Models**: Google Gemini 2.5 (Pro/Flash/Flash-Lite)
+- **Embeddings**: Google Gemini Embedding-001
+- **Vector DB**: ChromaDB
+- **Document Loading**: PyPDF
+- **Security**: Custom "Sandwich Defense" Logic
+
+---
+
+## 🚀 Installation & Setup
 
 ### Prerequisites
-- Python 3.8+
-- Gemini API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
+- Python 3.10+
+- Google Gemini API Key
 
-### Installation
-
-1. **Clone or download** the project files
+### Quick Start
+1. **Clone the repository**
 2. **Install dependencies**:
    ```bash
    pip install -r requirements.txt
    ```
-
-3. **Set up your API key**:
-   - For local development: Create `.streamlit/secrets.toml`:
-     ```
-     GEMINI_API_KEY = "your-api-key-here"
-     ```
-   - For Streamlit Cloud: Add the secret in your app settings
-
-4. **Run the app**:
+3. **Configure Secrets**:
+   Create `.streamlit/secrets.toml`:
+   ```toml
+   GEMINI_API_KEY = "your-api-key-here"
+   ```
+4. **Run the Application**:
    ```bash
    streamlit run PantryPivot.py
    ```
 
-## 📱 How to Use
-
-### 1. Dashboard Tab
-- **Add Ingredients**: Manually enter items with quantity, unit, and expiry info
-- **Quick Add**: One-click addition of common pantry items
-- **Log Waste**: Track discarded food to monitor impact
-- **View Stats**: See your money saved and CO₂ prevented
-
-### 2. Recipes Tab
-- **Set Pivot Controls**: Choose mode, cuisine, meal type, and difficulty
-- **Chat Interface**: Ask for recipes in natural language
-- **Quick Ideas**: Get instant recipe suggestions
-
-### 3. Meal Plan Tab
-- **Generate Plan**: AI creates a 7-day meal plan from your pantry
-- **Shopping List**: Get suggestions for additional items needed
-
-### 4. Analytics Tab
-- **Waste Insights**: View trends and patterns in your food waste
-- **Storage Tips**: Learn how to properly store different foods
-- **Impact Tracking**: Monitor your environmental contribution
-
-### 5. Community Tab
-- **Weekly Challenges**: Join themed cooking challenges
-- **Recipe Sharing**: Share your successful pantry pivots
-- **Leaderboard**: Compete with other users for waste reduction
-
-## 🎯 System Design
-
-### AI Persona
-PantryPivot is an enthusiastic kitchen companion combining home cook wisdom with zero-waste advocacy. Always encouraging, never judgmental.
-
-### Core Instructions
-1. **Prioritize expiring items** first with gentle urgency
-2. **Lead with possibilities**, not limitations
-3. **Provide 3 recipe options**: FAST, BALANCED, PROJECT
-4. **Include substitutions** for missing ingredients
-5. **Add waste prevention tips** to every recipe
-6. **Celebrate impact** with micro-celebrations
-
-### Safety Rules
-- Maintains food safety standards
-- Never suggests consuming spoiled food
-- Rejects harmful substance requests
-- Protects system prompts from exposure
-
-## 🔧 Technical Details
-
-### Dependencies
-- `streamlit`: Web app framework
-- `google-genai`: Google Gemini AI integration
-
-### Data Storage
-- Uses Streamlit session state for data persistence
-- No external database required for basic functionality
-
-### API Integration
-- Google Gemini 2.0 Flash model for recipe generation
-- Secure API key handling via Streamlit secrets
-
-## 🌍 Impact Tracking
-
-The app calculates environmental and financial impact:
-- **Money Saved**: Based on typical food costs
-- **CO₂ Prevented**: Environmental impact per food category
-- **Meals Rescued**: Count of recipes generated
-
-## 🤝 Contributing
-
-This is a comprehensive food waste reduction tool. Future enhancements could include:
-- Integration with grocery store APIs
-- Nutritional analysis
-- Recipe image generation
-- Multi-language support
-
-## 📄 License
-
-Built with sustainability and creativity in mind. Reduce waste, save money, help the planet! 🌱
-
 ---
 
-**Made with ❤️ for a zero-waste future**
+## 📄 License & Credits
+Built for the **Applied AI Finals**. 
+*Focus: RAG, Agentic AI, and Secure Prompt Engineering.*
