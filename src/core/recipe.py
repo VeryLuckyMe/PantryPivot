@@ -6,6 +6,7 @@ import streamlit as st
 import google.genai as genai
 import json
 
+import os
 from src.core.rag import query_rag
 from src.security.defenses import is_injection_attempt, is_suspicious_response
 
@@ -23,10 +24,11 @@ def generate_recipe(prompt):
         st.session_state.messages.append({"role": "assistant", "content": block_msg})
         return
 
-    if "GEMINI_API_KEY" not in st.secrets:
+    api_key = st.secrets.get("GEMINI_API_KEY") or os.getenv("GEMINI_API_KEY")
+    if not api_key:
         st.session_state.messages.append({
             "role": "assistant",
-            "content": "⚠️ **AI disabled. Add GEMINI_API_KEY to secrets.**"
+            "content": "⚠️ **AI disabled.** Please add your `GEMINI_API_KEY` to `.streamlit/secrets.toml`."
         })
         return
 
@@ -102,8 +104,9 @@ Generate a helpful cooking response.
 
 def generate_meal_plan():
     """Generate a 7-day meal plan using AI."""
-    if "GEMINI_API_KEY" not in st.secrets:
-        st.error("⚠️ **AI disabled.** Please add a valid `GEMINI_API_KEY` to your secrets.")
+    api_key = st.secrets.get("GEMINI_API_KEY") or os.getenv("GEMINI_API_KEY")
+    if not api_key:
+        st.error("⚠️ **AI disabled.** Please add your `GEMINI_API_KEY` to `.streamlit/secrets.toml`.")
         return
 
     ingredients = ", ".join([i["name"] for i in st.session_state.pantry])
@@ -124,7 +127,7 @@ def generate_meal_plan():
     }}
     """
     try:
-        client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
+        client = genai.Client(api_key=api_key)
         settings = st.session_state.recipe_settings
         response = client.models.generate_content(model=settings["model"], contents=prompt)
         text = response.text.strip()

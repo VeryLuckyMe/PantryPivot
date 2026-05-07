@@ -234,9 +234,20 @@ def page_recipes():
                                                                          index=["None", "Breakfast", "Lunch", "Dinner", "Snack"].index(st.session_state.recipe_settings["meal_type"]))
             st.session_state.recipe_settings["difficulty"] = st.selectbox("Difficulty", ["Fast (< 15 min)", "Balanced (30-45 min)", "Project (> 1h)"],
                                                                           index=["Fast (< 15 min)", "Balanced (30-45 min)", "Project (> 1h)"].index(st.session_state.recipe_settings["difficulty"]))
-            st.session_state.recipe_settings["model"] = st.selectbox("AI Model (Fallback)", ["gemini-2.0-flash", "gemini-flash-latest", "gemini-flash-lite-latest"],
-                                                                      index=["gemini-2.0-flash", "gemini-flash-latest", "gemini-flash-lite-latest"].index(st.session_state.recipe_settings["model"]),
-                                                                      help="Switch here if you hit a Rate Limit.")
+            model_options = {
+                "Gemini 2.0 Flash (Fastest)": "gemini-2.0-flash",
+                "Gemini 1.5 Pro (Smartest)": "gemini-1.5-pro-latest",
+                "Gemini 1.5 Flash": "gemini-1.5-flash-latest",
+                "Gemini 1.5 Flash-Lite": "gemini-1.5-flash-lite-latest",
+                "Gemini 2.0 Experimental": "gemini-2.0-flash-exp"
+            }
+            labels = list(model_options.keys())
+            values = list(model_options.values())
+            current_model = st.session_state.recipe_settings["model"]
+            default_idx = values.index(current_model) if current_model in values else 0
+            
+            selected_label = st.selectbox("AI Model (Free Tier)", labels, index=default_idx, help="Switch to 'Pro' for high-quality logic.")
+            st.session_state.recipe_settings["model"] = model_options[selected_label]
         st.markdown('</div>', unsafe_allow_html=True)
 
     # ── Quick Actions ──
