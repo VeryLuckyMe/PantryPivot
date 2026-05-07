@@ -25,6 +25,12 @@ Hardened against prompt injection and jailbreaking using advanced security patte
 - **Random Delimiter Encapsulation**: Dynamic, unique tags (e.g., `<USER_INPUT_X7Y2>`) isolate user input to prevent tag breakout attacks.
 - **Input Validation**: Real-time filtering for malicious keywords and prompt injection attempts.
 
+### 📈 4. Professional Observability (Langfuse)
+Integrated with **Langfuse** for real-time prompt engineering monitoring and lifecycle management.
+- **Live Tracing**: Every AI interaction, tool call, and RAG retrieval is logged and visualized in the Langfuse dashboard.
+- **Performance Analytics**: Tracks token usage, model latency, and cost in real-time.
+- **Agentic Debugging**: Detailed logs show exactly how the AI decided to use tools and what parameters it generated.
+
 ---
 
 ## 🌟 Core Features
@@ -38,10 +44,10 @@ Hardened against prompt injection and jailbreaking using advanced security patte
 ## 🛠️ Tech Stack
 
 - **Framework**: Streamlit (Python)
-- **AI Models**: Google Gemini 2.5 (Pro/Flash/Flash-Lite)
-- **Embeddings**: Google Gemini Embedding-001
-- **Vector DB**: ChromaDB
-- **Document Loading**: PyPDF
+- **AI Models**: Google Gemini 2.0/2.5 (Pro/Flash)
+- **Observability**: Langfuse v4.5
+- **Vector DB**: ChromaDB (via `langchain-chroma`)
+- **Persistence**: JSON-based State Management
 - **Security**: Custom "Sandwich Defense" Logic
 
 ---
