@@ -76,8 +76,8 @@ def query_rag(query: str) -> str:
         if not docs:
             return ""
 
-        # ✅ clean context formatting
-        context = "\n\n".join([doc.page_content for doc in docs[:3]])
+        # ✅ clean context formatting with citations
+        context = "\n\n".join([f"[Source: Page {doc.metadata.get('page', 'Unknown')}]\n{doc.page_content}" for doc in docs[:3]])
 
         return context
 
