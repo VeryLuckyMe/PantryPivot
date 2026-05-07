@@ -1,19 +1,5 @@
 [
   {
-    "name": "Eggs",
-    "qty": 1,
-    "unit": "pack",
-    "expiry": 14,
-    "id": "daa8c74232e84ea6ad0de867ed629d8f"
-  },
-  {
-    "name": "Eggs",
-    "qty": 1,
-    "unit": "pack",
-    "expiry": 14,
-    "id": "c4b846cfeb304b3fb81d854c60b9594e"
-  },
-  {
     "name": "Milk",
     "qty": 1,
     "unit": "pack",
@@ -33,5 +19,12 @@
     "unit": "pack",
     "expiry": 14,
     "id": "0902197e97794ff1b5ac956107b1f7bf"
+  },
+  {
+    "name": "Eggs",
+    "qty": 1,
+    "unit": "pack",
+    "expiry": 14,
+    "id": "760bef9c396c4d609fef6b238941e8d2"
   }
 ]
