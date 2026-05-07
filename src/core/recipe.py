@@ -12,16 +12,13 @@ import os
 from src.core.rag import query_rag
 from src.security.defenses import is_injection_attempt, is_suspicious_response
 from src.core.tools import pantry_update_tool, deduct_pantry_items
-from langfuse import Langfuse
+from langfuse.decorators import observe, langfuse_context
 
-# Initialize Langfuse
-langfuse = Langfuse(
-    public_key=st.secrets["LANGFUSE_PUBLIC_KEY"],
-    secret_key=st.secrets["LANGFUSE_SECRET_KEY"],
-    host=st.secrets["LANGFUSE_HOST"]
-)
+# Note: Langfuse credentials are automatically read from environment variables or st.secrets
+# if named correctly (LANGFUSE_PUBLIC_KEY, etc.), so manual init is often optional in v3.
 
 
+@observe(name="Recipe Generation")
 def generate_recipe(prompt):
     """Generate a recipe using AI with RAG context and prompt defenses."""
     st.session_state.messages.append({"role": "user", "content": prompt})
@@ -82,17 +79,10 @@ Available Pantry Ingredients: {ingredients}
 
     # ── AI EXECUTION ─────────────────────────────────────────────────────────
     try:
-        # Start Langfuse Trace
-        trace = langfuse.trace(name="Recipe Generation", user_id="pantry-user-1")
+        # Update Trace Metadata
+        langfuse_context.update_current_trace(user_id="pantry-user-1")
         
         client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
-
-        # Log Generation Start
-        generation = trace.generation(
-            name="Gemini Call",
-            model=settings["model"],
-            input=full_prompt
-        )
 
         response = client.models.generate_content(
             model=settings["model"],
@@ -105,9 +95,8 @@ Available Pantry Ingredients: {ingredients}
             for call in response.function_calls:
                 if call.name == "deduct_pantry_items":
                     args = call.args
-                    # Log Tool Call in Langfuse
-                    trace.event(name="Tool Call Triggered", input=args)
-                    generation.end(output=f"TOOL_CALL: {call.name}")
+                    # Log Event in Langfuse
+                    langfuse_context.update_current_observation(name="Pantry Deduction Triggered", input=args)
                     
                     # Store the pending tool execution in session state for manual confirmation
                     st.session_state.pending_tool_call = args
@@ -119,8 +108,8 @@ Available Pantry Ingredients: {ingredients}
 
         response_text = response.text
         
-        # Log Success in Langfuse
-        generation.end(output=response_text)
+        # Log Output in Langfuse
+        langfuse_context.update_current_observation(output=response_text)
 
         # ── DEFENSE 4: Output Filtering ──────────────────────────────────────
         if is_suspicious_response(response_text):
