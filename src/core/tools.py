@@ -31,10 +31,17 @@ def deduct_pantry_items(items_to_remove: list[PantryItemToRemove]) -> str:
                 if item["qty"] > target_qty:
                     item["qty"] -= target_qty
                     removed_log.append(f"Reduced {item['name']} by {target_qty}")
+                    target_qty = 0
+                    break # Fully deducted
                 else:
-                    removed_log.append(f"Removed all {item['name']} from pantry")
+                    # Deduct what we can from this entry and keep looking
+                    deducted = item["qty"]
+                    removed_log.append(f"Removed {deducted} of {item['name']} from pantry")
                     st.session_state.pantry.remove(item)
-                break
+                    target_qty -= deducted
+                    
+                    if target_qty <= 0:
+                        break # Fully deducted
         
         if not found:
             not_found_log.append(f"Could not find {target.name}")
