@@ -2,8 +2,9 @@
 # Each function renders one full page of the PantryPivot application.
 
 import streamlit as st
+import uuid
 
-from src.core.pantry import add_pantry_item
+from src.core.pantry import add_pantry_item, save_pantry
 from src.core.recipe import generate_recipe, generate_meal_plan
 from src.core.rag import setup_rag
 
@@ -170,6 +171,7 @@ def page_pantry():
                 with cols[j]:
                     if st.button(f"{e} {n}", key=f"q_{n}", use_container_width=True):
                         add_pantry_item(n, 1, "pack", exp)
+                        save_pantry(st.session_state.pantry)
                         st.rerun()
 
     st.markdown("<br><hr style='border-color:rgba(255,255,255,0.05)'><br>", unsafe_allow_html=True)
@@ -184,6 +186,7 @@ def page_pantry():
                 st.markdown(f'<div class="pp-card" style="margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;"><span><strong>{item["name"]}</strong><br><span style="font-size:0.8rem;color:#94a3b8;">{item["qty"]} {item["unit"]}</span></span><span class="pp-badge {badge_cls}">{item["expiry"]} days</span></div>', unsafe_allow_html=True)
                 if st.button(f"🗑️ Delete", key=f"del_{item['id']}"):
                     st.session_state.pantry = [i for i in st.session_state.pantry if i["id"] != item["id"]]
+                    save_pantry(st.session_state.pantry)
                     st.rerun()
 
     with right:
@@ -198,6 +201,7 @@ def page_pantry():
             if st.form_submit_button("Add to Pantry"):
                 if name:
                     add_pantry_item(name, qty, unit, expiry=expiry)
+                    save_pantry(st.session_state.pantry)
                     st.rerun()
         st.markdown('</div>', unsafe_allow_html=True)
 
