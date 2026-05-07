@@ -16,6 +16,7 @@ import streamlit as st
 from src.ui.styles import inject_custom_css
 from src.ui.sidebar import render_sidebar
 from src.ui.pages import page_home, page_pantry, page_recipes, page_mealplan
+from src.core.pantry import load_pantry
 
 # ── Page Config (MUST be first Streamlit command) ────────────────────────────
 st.set_page_config(
@@ -31,7 +32,7 @@ inject_custom_css()
 # ── Session State Defaults ──────────────────────────────────────────────────
 _defaults = {
     "page": "home",
-    "pantry": [],
+    "pantry": load_pantry(),
     "messages": [],
     "recipes": [],
     "waste_log": [],
@@ -48,7 +49,7 @@ if "recipe_settings" not in st.session_state:
         "meal_type": "None",
         "cuisine": "",
         "difficulty": "Balanced (30-45 min)",
-        "model": "gemini-flash-lite-latest",
+        "model": "gemini-2.5-flash",
     }
 if "meal_plan" not in st.session_state:
     st.session_state.meal_plan = None

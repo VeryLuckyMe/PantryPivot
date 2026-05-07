@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Eggs",
+    "qty": 1,
+    "unit": "pack",
+    "expiry": 14,
+    "id": "c450892961164b9d85259342f63f56a7"
+  },
+  {
+    "name": "Milk",
+    "qty": 1,
+    "unit": "pack",
+    "expiry": 7,
+    "id": "3dca7dc46e054b81809211847111c6ab"
+  }
+]

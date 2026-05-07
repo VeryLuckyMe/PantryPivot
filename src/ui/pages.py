@@ -235,11 +235,11 @@ def page_recipes():
             st.session_state.recipe_settings["difficulty"] = st.selectbox("Difficulty", ["Fast (< 15 min)", "Balanced (30-45 min)", "Project (> 1h)"],
                                                                           index=["Fast (< 15 min)", "Balanced (30-45 min)", "Project (> 1h)"].index(st.session_state.recipe_settings["difficulty"]))
             model_options = {
-                "Gemini 2.0 Flash (Fastest)": "gemini-2.0-flash",
-                "Gemini 1.5 Pro (Smartest)": "gemini-1.5-pro-latest",
-                "Gemini 1.5 Flash": "gemini-1.5-flash-latest",
-                "Gemini 1.5 Flash-Lite": "gemini-1.5-flash-lite-latest",
-                "Gemini 2.0 Experimental": "gemini-2.0-flash-exp"
+                "Gemini 2.5 Flash (Recommended)": "gemini-2.5-flash",
+                "Gemini 2.5 Pro (Smartest)": "gemini-2.5-pro",
+                "Gemini 2.0 Flash": "gemini-2.0-flash",
+                "Gemini 2.0 Flash-Lite (Fastest)": "gemini-2.0-flash-lite",
+                "Gemini 2.5 Flash-Lite": "gemini-2.5-flash-lite",
             }
             labels = list(model_options.keys())
             values = list(model_options.values())
@@ -272,6 +272,28 @@ def page_recipes():
     for msg in st.session_state.messages:
         with st.chat_message(msg["role"]):
             st.write(msg["content"])
+            
+    if getattr(st.session_state, "pending_tool_call", None):
+        st.warning("🤖 **AI Kitchen Manager:** I have prepared a pantry update for you.")
+        args = st.session_state.pending_tool_call
+        items = args.get("items_to_remove", [])
+        for item in items:
+            st.write(f"- Deduct **{item['qty']}** x **{item['name']}**")
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.button("✅ Confirm Deduction", use_container_width=True):
+                from src.core.tools import deduct_pantry_items
+                result = deduct_pantry_items(items)
+                st.session_state.messages.append({"role": "assistant", "content": result})
+                st.session_state.pending_tool_call = None
+                st.rerun()
+        with col2:
+            if st.button("❌ Cancel", use_container_width=True):
+                st.session_state.messages.append({"role": "assistant", "content": "Pantry update cancelled."})
+                st.session_state.pending_tool_call = None
+                st.rerun()
+
     st.markdown('</div>', unsafe_allow_html=True)
 
     prompt = st.chat_input("Ask for a recipe e.g. 'Make a fast dinner out of my expiring items'")

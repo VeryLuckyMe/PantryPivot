@@ -28,7 +28,7 @@ def setup_rag():
             return None
 
         embedding = GoogleGenerativeAIEmbeddings(
-            model="models/embedding-001", google_api_key=api_key
+            model="models/gemini-embedding-001", google_api_key=api_key
         )
 
         # ✅ LOAD existing DB instead of recreating
