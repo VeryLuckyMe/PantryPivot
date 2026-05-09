@@ -259,3 +259,66 @@ div[data-testid="stExpander"] [data-testid="stExpanderHeader"] {
 }
 
 footer { display: none !important; }
+
+/* ── Mobile Responsiveness ── */
+@media (max-width: 768px) {
+  .block-container {
+    padding: 20px 15px !important;
+  }
+  
+  .hero-header h1 {
+    font-size: 2.2rem !important;
+  }
+  
+  .hero-header p {
+    font-size: 0.95rem !important;
+    max-width: 100% !important;
+  }
+
+  .scorecard-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+  }
+
+  .nav-hub-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .top-nav {
+    gap: 16px !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+    padding-bottom: 8px !important;
+  }
+
+  .score-card .value {
+    font-size: 1.8rem !important;
+  }
+
+  .utf-left {
+    gap: 10px !important;
+  }
+
+  .utf-icon {
+    width: 36px !important;
+    height: 36px !important;
+    font-size: 18px !important;
+  }
+
+  /* Safe Quick Add Shrink */
+  .stButton > button[key^="q_"] {
+    padding: 6px !important;
+    min-height: 36px !important;
+    font-size: 0.85rem !important;
+    margin-bottom: -10px !important;
+  }
+}
+
+
+
+@media (max-width: 480px) {
+  .scorecard-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
