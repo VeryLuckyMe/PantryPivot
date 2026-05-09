@@ -218,10 +218,16 @@ def page_recipes():
     """, unsafe_allow_html=True)
 
     # ✅ RAG STATUS
-    if setup_rag():
-        st.success("📚 Knowledge Base Loaded")
+    retriever = setup_rag()
+    if retriever:
+        st.success("📚 Knowledge Base Loaded & Active")
     else:
-        st.warning("📭 No knowledge_base.pdf found (RAG disabled)")
+        if not os.path.exists("knowledge_base.pdf"):
+            st.warning("📭 File Missing: knowledge_base.pdf not found in repo root")
+        elif not st.secrets.get("GEMINI_API_KEY"):
+            st.error("🔑 API Key Missing: Check your Streamlit Secrets")
+        else:
+            st.error("⚙️ RAG Error: Check logs for details (likely cache issue)")
 
     # ── Recipe Settings ──
     with st.expander("⚙️ Recipe Settings", expanded=True):
