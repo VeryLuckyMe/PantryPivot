@@ -310,25 +310,27 @@ footer { display: none !important; }
     margin-bottom: -12px !important;
   }
 
-  /* Force 3 columns on mobile for Quick Add */
-  .quick-add-grid [data-testid="stHorizontalBlock"] {
-    display: flex !important;
+  /* Force 3 columns on mobile ONLY for rows that have Quick Add buttons */
+  [data-testid="stHorizontalBlock"]:has(button[key^="q_"]) {
     flex-direction: row !important;
     flex-wrap: wrap !important;
     gap: 8px !important;
   }
-  .quick-add-grid [data-testid="column"] {
-    width: 31% !important;
-    flex: 0 0 31% !important;
+
+  [data-testid="stHorizontalBlock"]:has(button[key^="q_"]) [data-testid="column"] {
+    width: 30% !important;
+    flex: 0 0 30% !important;
     min-width: 0 !important;
   }
-  .quick-add-grid button {
+
+  [data-testid="stHorizontalBlock"]:has(button[key^="q_"]) button {
     padding: 8px 2px !important;
     font-size: 0.7rem !important;
     white-space: nowrap !important;
     overflow: hidden !important;
   }
 }
+
 
 
 
