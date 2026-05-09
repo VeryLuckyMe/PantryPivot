@@ -161,12 +161,18 @@ def page_pantry():
         ("Potatoes", "🥔", 30), ("Butter", "🧈", 30), ("Yogurt", "🥛", 14), ("Corn", "🌽", 5), ("Lemon", "🍋", 14)
     ]
 
-    # Render as an inline wrapping list using modern CSS
-    for n, e, exp in quick_items:
-        if st.button(f"{e} {n}", key=f"q_{n}"):
-            add_pantry_item(n, 1, "pack", exp)
-            save_pantry(st.session_state.pantry)
-            st.rerun()
+    # Render in rows of 5
+    for i in range(0, len(quick_items), 5):
+        cols = st.columns(5)
+        for j in range(5):
+            idx = i + j
+            if idx < len(quick_items):
+                n, e, exp = quick_items[idx]
+                with cols[j]:
+                    if st.button(f"{e} {n}", key=f"q_{n}", use_container_width=True):
+                        add_pantry_item(n, 1, "pack", exp)
+                        save_pantry(st.session_state.pantry)
+                        st.rerun()
 
     st.markdown("<br><hr style='border-color:rgba(255,255,255,0.05)'><br>", unsafe_allow_html=True)
     left, right = st.columns([2, 1])

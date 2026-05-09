@@ -304,29 +304,13 @@ footer { display: none !important; }
     height: 36px !important;
     font-size: 18px !important;
   }
+
+  /* Compact spacing for stacked buttons on mobile */
+  [data-testid="column"] .stButton {
+    margin-bottom: -12px !important;
+  }
 }
 
-/* ── Universal Quick Add Wrapping Grid (Desktop & Mobile) ── */
-div[data-testid="stElementContainer"]:has(> .stButton > button[key^="q_"]) {
-  display: inline-block !important;
-  width: auto !important;
-  margin-right: 8px !important;
-  margin-bottom: 8px !important;
-}
-
-.stButton > button[key^="q_"] {
-  border-radius: 20px !important;
-  padding: 6px 14px !important;
-  font-size: 0.85rem !important;
-  background: rgba(255,255,255,0.05) !important;
-  border: 1px solid rgba(255,255,255,0.1) !important;
-  width: auto !important;
-}
-
-.stButton > button[key^="q_"]:hover {
-  background: rgba(59, 130, 246, 0.2) !important;
-  border-color: var(--accent-blue) !important;
-}
 
 
 
