@@ -161,7 +161,8 @@ def page_pantry():
         ("Potatoes", "🥔", 30), ("Butter", "🧈", 30), ("Yogurt", "🥛", 14), ("Corn", "🌽", 5), ("Lemon", "🍋", 14)
     ]
 
-    # Render in rows of 5
+    # Render in a responsive grid container
+    st.markdown('<div class="quick-add-grid">', unsafe_allow_html=True)
     for i in range(0, len(quick_items), 5):
         cols = st.columns(5)
         for j in range(5):
@@ -173,6 +174,7 @@ def page_pantry():
                         add_pantry_item(n, 1, "pack", exp)
                         save_pantry(st.session_state.pantry)
                         st.rerun()
+    st.markdown('</div>', unsafe_allow_html=True)
 
     st.markdown("<br><hr style='border-color:rgba(255,255,255,0.05)'><br>", unsafe_allow_html=True)
     left, right = st.columns([2, 1])
