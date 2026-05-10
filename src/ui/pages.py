@@ -228,7 +228,8 @@ def page_recipes():
         elif not st.secrets.get("GEMINI_API_KEY"):
             st.error("🔑 API Key Missing: Check your Streamlit Secrets")
         else:
-            st.error("⚙️ RAG Error: Check logs for details (likely cache issue)")
+            err = st.session_state.get("rag_error", "Unknown error (check logs)")
+            st.error(f"⚙️ RAG Error: {err}")
 
     # ── Recipe Settings ──
     with st.expander("⚙️ Recipe Settings", expanded=True):

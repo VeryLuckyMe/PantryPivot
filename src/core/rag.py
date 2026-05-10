@@ -28,7 +28,7 @@ def setup_rag():
             return None
 
         embedding = GoogleGenerativeAIEmbeddings(
-            model="models/gemini-embedding-001", google_api_key=api_key
+            model="embedding-001", google_api_key=api_key
         )
 
         # ✅ LOAD existing DB instead of recreating
@@ -52,13 +52,13 @@ def setup_rag():
                 embedding=embedding,
                 persist_directory=CHROMA_DIR
             )
-            vectorstore.persist()
 
         retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
 
         return retriever
 
     except Exception as e:
+        st.session_state["rag_error"] = str(e)
         print(f"RAG setup failed: {e}")
         return None
 
