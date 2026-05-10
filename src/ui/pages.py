@@ -3,6 +3,7 @@
 
 import streamlit as st
 import uuid
+import os
 
 from src.core.pantry import add_pantry_item, save_pantry
 from src.core.recipe import generate_recipe, generate_meal_plan
