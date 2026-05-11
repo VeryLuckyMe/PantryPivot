@@ -26,7 +26,7 @@ def setup_rag():
             return {"retriever": None, "error": "API Key Missing: GEMINI_API_KEY not found in secrets."}
 
         embedding = GoogleGenerativeAIEmbeddings(
-            model="embedding-001", google_api_key=api_key
+            model="models/text-embedding-004", google_api_key=api_key
         )
 
         # ✅ LOAD existing DB if healthy, otherwise create
