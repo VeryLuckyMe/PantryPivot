@@ -68,56 +68,56 @@ def page_home(pantry_count, meals_rescued, expiring_count, waste_count, fresh_pe
     with left:
         st.markdown('<div class="section-title">Navigation Hub</div>', unsafe_allow_html=True)
         
-        # We use a container to stack the HTML card and a transparent button hitbox
         c1, c2 = st.columns(2)
         
         with c1:
+            # Wrap both in a relative container
+            st.markdown('<div class="hub-card-wrapper">', unsafe_allow_html=True)
             st.markdown(f"""
-            <div class="card-hitbox-container">
                 <div class="hub-card-large">
                     <div>
                         <h3>Recipe<br>Assistant</h3>
                         <p>AI-crafted dishes based on<br>your inventory.</p>
                     </div>
                 </div>
-            </div>
             """, unsafe_allow_html=True)
             if st.button(" ", key="hitbox_recipes", use_container_width=True):
                 st.session_state.page = "recipes"
                 st.rerun()
+            st.markdown('</div>', unsafe_allow_html=True)
                 
         with c2:
-            # Your Pantry Card
+            # Your Pantry Card Wrapper
+            st.markdown('<div class="hub-card-wrapper">', unsafe_allow_html=True)
             st.markdown(f"""
-            <div class="card-hitbox-container">
                 <div class="hub-card-small">
                     <span class="material-symbols-outlined icon">inventory_2</span>
                     <h4>Your Pantry</h4>
                     <p>{pantry_count} ACTIVE INGREDIENTS</p>
                     <span class="material-symbols-outlined arrow">arrow_forward</span>
                 </div>
-            </div>
             """, unsafe_allow_html=True)
             if st.button(" ", key="hitbox_pantry", use_container_width=True):
                 st.session_state.page = "pantry"
                 st.rerun()
+            st.markdown('</div>', unsafe_allow_html=True)
             
             st.markdown('<div style="margin-top:16px;"></div>', unsafe_allow_html=True)
             
-            # Meal Plan Card
+            # Meal Plan Card Wrapper
+            st.markdown('<div class="hub-card-wrapper">', unsafe_allow_html=True)
             st.markdown(f"""
-            <div class="card-hitbox-container">
                 <div class="hub-card-small">
                     <span class="material-symbols-outlined icon">calendar_month</span>
                     <h4>Meal Plan</h4>
                     <p>NEXT: VIEW PLAN</p>
                     <span class="material-symbols-outlined arrow">arrow_forward</span>
                 </div>
-            </div>
             """, unsafe_allow_html=True)
             if st.button(" ", key="hitbox_mealplan", use_container_width=True):
                 st.session_state.page = "mealplan"
                 st.rerun()
+            st.markdown('</div>', unsafe_allow_html=True)
 
     with right:
         st.markdown("""
