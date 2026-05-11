@@ -219,17 +219,14 @@ def page_recipes():
     """, unsafe_allow_html=True)
 
     # ✅ RAG STATUS
-    retriever = setup_rag()
+    rag_result = setup_rag()
+    retriever = rag_result.get("retriever")
+    error = rag_result.get("error")
+
     if retriever:
         st.success("📚 Knowledge Base Loaded & Active")
     else:
-        if not os.path.exists("knowledge_base.pdf"):
-            st.warning("📭 File Missing: knowledge_base.pdf not found in repo root")
-        elif not st.secrets.get("GEMINI_API_KEY"):
-            st.error("🔑 API Key Missing: Check your Streamlit Secrets")
-        else:
-            err = st.session_state.get("rag_error", "Unknown error (check logs)")
-            st.error(f"⚙️ RAG Error: {err}")
+        st.error(f"⚙️ RAG Error: {error if error else 'Unknown initialization error'}")
 
     # ── Recipe Settings ──
     with st.expander("⚙️ Recipe Settings", expanded=True):
