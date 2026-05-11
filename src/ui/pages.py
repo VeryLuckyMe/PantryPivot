@@ -67,30 +67,27 @@ def page_home(pantry_count, meals_rescued, expiring_count, waste_count, fresh_pe
 
     with left:
         st.markdown('<div class="section-title">Navigation Hub</div>', unsafe_allow_html=True)
-        st.markdown(f"""
-        <div class="nav-hub-grid">
-          <div class="hub-card-large" style="grid-row: span 2;">
-            <div>
-              <h3>Recipe<br>Assistant</h3>
-              <p>AI-crafted dishes based on<br>your inventory.</p>
-            </div>
-          </div>
-          <div style="display:flex; flex-direction:column; gap:16px;">
-              <div class="hub-card-small">
-                <span class="material-symbols-outlined icon">inventory_2</span>
-                <h4>Your Pantry</h4>
-                <p>{pantry_count} ACTIVE INGREDIENTS</p>
-                <span class="material-symbols-outlined arrow">arrow_forward</span>
-              </div>
-              <div class="hub-card-small">
-                <span class="material-symbols-outlined icon">calendar_month</span>
-                <h4>Meal Plan</h4>
-                <p>NEXT: VIEW PLAN</p>
-                <span class="material-symbols-outlined arrow">arrow_forward</span>
-              </div>
-          </div>
-        </div>
-        """, unsafe_allow_html=True)
+        
+        # Use columns to create the grid
+        c1, c2 = st.columns(2)
+        
+        with c1:
+            # Styled via CSS as .hub-card-large
+            if st.button("Recipe Assistant\nAI-crafted dishes based on your inventory.", key="hub_recipes", use_container_width=True):
+                st.session_state.page = "recipes"
+                st.rerun()
+        
+        with c2:
+            # Styled via CSS as .hub-card-small
+            if st.button(f"Your Pantry\n{pantry_count} ACTIVE INGREDIENTS", key="hub_pantry", use_container_width=True):
+                st.session_state.page = "pantry"
+                st.rerun()
+            
+            st.markdown('<div style="margin-top:16px;"></div>', unsafe_allow_html=True)
+            
+            if st.button("Meal Plan\nNEXT: VIEW PLAN", key="hub_mealplan", use_container_width=True):
+                st.session_state.page = "mealplan"
+                st.rerun()
 
     with right:
         st.markdown("""

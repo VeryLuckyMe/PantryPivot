@@ -117,26 +117,45 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stApp"] {
 /* ── Two Column Layout ── */
 .section-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 20px; }
 
-.nav-hub-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.hub-card-large {
-  background: linear-gradient(to bottom right, rgba(255,255,255,0.1), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=500');
-  background-size: cover; background-position: center;
-  border-radius: 16px; padding: 24px; min-height: 250px;
-  display: flex; flex-direction: column; justify-content: flex-end;
+/* ── Navigation Hub Buttons ── */
+.stButton > button[key^="hub_"] {
+  border-radius: 16px !important;
+  text-align: left !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: flex-end !important;
+  white-space: pre-wrap !important;
+  padding: 24px !important;
+  border: 1px solid transparent !important;
+  transition: 0.3s !important;
+  line-height: 1.2 !important;
 }
-.hub-card-large h3 { font-size: 1.8rem; font-weight: 800; margin: 0 0 8px 0; line-height: 1.1; }
-.hub-card-large p { font-size: 0.9rem; color: #e2e8f0; margin: 0; }
 
-.hub-card-small {
-  background-color: var(--bg-card); border-radius: 16px; padding: 24px;
-  display: flex; flex-direction: column; justify-content: center; gap: 8px;
-  position: relative; cursor: pointer; border: 1px solid transparent; transition: 0.2s;
+/* Large Card Button */
+.stButton > button[key="hub_recipes"] {
+  background: linear-gradient(to bottom right, rgba(255,255,255,0.1), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=500') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  min-height: 270px !important;
+  font-size: 1.8rem !important;
+  font-weight: 800 !important;
 }
-.hub-card-small:hover { border-color: rgba(255,255,255,0.1); background-color: #1e243b; }
-.hub-card-small .icon { color: var(--text-muted); margin-bottom: 4px; }
-.hub-card-small h4 { font-size: 1.1rem; font-weight: 700; margin: 0; }
-.hub-card-small p { font-size: 0.75rem; color: var(--text-muted); margin: 0; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
-.hub-card-small .arrow { position: absolute; right: 24px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+
+/* Small Card Buttons */
+.stButton > button[key="hub_pantry"], .stButton > button[key="hub_mealplan"] {
+  background-color: var(--bg-card) !important;
+  min-height: 127px !important;
+  font-size: 1.2rem !important;
+  font-weight: 700 !important;
+}
+
+.stButton > button[key^="hub_"]:hover {
+  border-color: rgba(255,255,255,0.2) !important;
+  background-color: #1e243b !important;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
 
 /* ── Use These First List ── */
 .utf-list { display: flex; flex-direction: column; gap: 12px; }
