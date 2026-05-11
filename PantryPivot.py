@@ -58,6 +58,16 @@ if "meal_plan" not in st.session_state:
 # ── Main ────────────────────────────────────────────────────────────────────
 def main():
     """Application entry point — calculates metrics and routes to the active page."""
+    # ── URL Navigation Sync ──
+    if "nav" in st.query_params:
+        requested_page = st.query_params["nav"]
+        if requested_page in ["home", "pantry", "recipes", "mealplan"]:
+            if st.session_state.page != requested_page:
+                st.session_state.page = requested_page
+                # Clear query param to avoid sticky state
+                st.query_params.clear()
+                st.rerun()
+
     # Pre-calculate common metrics
     pantry_count = len(st.session_state.pantry)
     meals_rescued = st.session_state.stats["meals"]
